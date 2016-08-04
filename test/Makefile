@@ -1,6 +1,5 @@
 clean:
-	rm -f inline __*
-	rm -f text_symbols/_*
+	rm -rf inline __*
 
 inline:
 	gcc -O inline.c -o inline
@@ -14,6 +13,7 @@ text_tool: inline
 	python3 osx_textool.py inline __text
 
 symbol_tool:
+	mkdir text_symbols
 	python3 osx_symboltool.py inline text_symbols/
 
 run: clean inline disasm text_tool symbol_tool
