@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define TEXT_START 0x0000000100000000
+
 void extern inline noarg_noreturn() {
 	int n1 = 10, n2 = 24234, i, gcd;
 
@@ -87,4 +89,5 @@ int main() {
 	use2();
 	use3();
 	use4();
+	// printf("%d\n", );
 }
