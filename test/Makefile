@@ -1,5 +1,6 @@
 clean:
 	rm -rf inline __*
+	rm -rf text_symbols
 
 inline:
 	gcc -O inline.c -o inline

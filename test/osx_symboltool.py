@@ -36,8 +36,11 @@ class Symbol:
 		symbol_file.write(self.raw_bytes)
 		symbol_file.close()
 
+	def relative_addrs(self, absolute_offset):
+		return (self.start_addr - absolute_offset, self.end_addr - absolute_offset)
+
 	def __repr__(self):
-		return "{} ({}-{}):\n{}".format(self.name, self.start_addr, self.end_addr, self.raw_bytes)
+		return "{} ({}-{})".format(self.name, self.start_addr, self.end_addr)
 
 	def __init__(self):
 		self.name = ""
@@ -69,6 +72,8 @@ for line in text_dump:
 			symbol = Symbol.symbol_from_buffer(symbol_name, symbol_buffer)
 			symbol.find_raw_bytes(section_offset, section_bytes)
 			symbol.dump_symbol(sys.argv[2])
+			rel_addrs = symbol.relative_addrs(section_offset)
+			print("Symbol {}: relative ({}-{})".format(symbol, rel_addrs[0], rel_addrs[1]))
 			symbols.append(symbol)
 		symbol_name = line[:-2]
 		symbol_buffer = []
